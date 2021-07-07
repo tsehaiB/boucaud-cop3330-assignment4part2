@@ -1,0 +1,81 @@
+ @startuml
+'https://plantuml.com/class-diagram
+class ToDoList{
+    main()
+    start()
+}
+class ToDoListManager {
+    - savePath : TextField
+    - loadPath : TextField
+    - ListTitle : TextField
+
+    - listSavePath : Path
+    - listLoadPath : Path
+    - listTitle : String
+    - lists : ArrayList<ToDoList>
+
+    + SaveToPath(Action Event)
+    + LoadFromPath(Action Event)
+    + CreateList(Action Event)
+
+    + retPathToLists(Path)
+    + retToDoLists(Path)
+    + addList(String)
+    + showList()
+}
+class ToDoItemManager {
+    - saveTitles : TextField
+    - loadTitles : TextField
+    - listTitle : TextField
+
+    - title : String
+    - itemsToLoad : String
+    - itemsToSave : String
+    - items : ArrayList<ToDoListItems>
+
+    + onSaveClicked(Action Event)
+    + onLoadClicked(Action Event)
+    + onAddClicked(Action Event)
+    + onShowAllClicked(Action Event)
+    + onFilterCompleteClicked(Action Event)
+    + onFilterIncompleteClicked(Action Event)
+    + onListTitleChanged(Action Event)
+
+    + saveItems(ArrayList<String>)
+    + saveItems(String)
+    + loadItems(ArrayList<String>)
+    + loadItems(String)
+
+    + filterItems(boolean)
+    + showList()
+
+    + getListItems()
+    + getTitle()
+    + getDisplayItems()
+}
+class ToDoListItem {
+        - TitleTextField : TextField
+        - DescriptionTextArea : TextArea
+        - CompletionCheckBox : CheckBox
+        - DueDateField : DatePicker
+
+        - title : String
+        - description : String
+        - completionStatus : boolean
+        - dueDate : LocalDate
+
+        + Enter(KeyEvent)
+        + DueDateChanged(Action Event)
+        + StatusChanged(Action Event)
+        + TitleEntered(KeyEvent)
+
+        + getTitle()
+        + getDescription()
+        + getCompletionStatus()
+        + getDueDate()
+}
+ToDoList *-> ToDoListManager
+ToDoListManager -- ToDoItemManager
+ToDoItemManager -- ToDoListItem
+
+@enduml
