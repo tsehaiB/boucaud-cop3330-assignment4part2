@@ -100,8 +100,12 @@ public class ToDoListMenu {
     }
     public void addItem(ToDoListItem nextItem){
        items.add(nextItem);
+       displayItems.add(nextItem);
     }
     public ArrayList<ToDoListItem> getItems(){
         return this.items;
+    }
+    public ArrayList<ToDoListItem> getDisplayItems(){
+        return this.displayItems;
     }
 }

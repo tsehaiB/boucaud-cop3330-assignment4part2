@@ -13,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
 
 import static com.sun.javafx.scene.control.skin.Utils.getResource;
 
@@ -54,11 +55,15 @@ public class ToDoListMenuController {
     @FXML
     public void onDeleteClicked(ActionEvent actionEvent) {
         if(menu.getItems().size() > 0) {
-            int currentTab = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getSelectionModel().getSelectedIndex();
-            ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getTabs().remove(currentTab);
-            System.out.println("Deleting item: " + menu.getItems().get(menu.getItems().size()-1));
-            menu.getItems().remove(menu.getItems().size() - 1);
+            deleteItem();
         }
+    }
+    private void deleteItem(){
+        int currentTab = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getSelectionModel().getSelectedIndex();
+        ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getTabs().remove(currentTab);
+        System.out.println("Deleting item: " + menu.getItems().get(menu.getItems().size()-1));
+        menu.getItems().remove(menu.getItems().size() - 1);
+        //menu.getDisplayItems().remove()
     }
     @FXML
     public void onFilterCompleteClicked(ActionEvent actionEvent) {
@@ -68,5 +73,14 @@ public class ToDoListMenuController {
     }
     @FXML
     public void onShowAllClicked(ActionEvent actionEvent) {
+        //Collections.copy(menu.getDisplayItems(), menu.getItems());
+    }
+
+    public void onClearClicked(ActionEvent actionEvent) {
+        while(menu.getItems().size() > 0){
+            myMenu.fireEvent(actionEvent);
+            deleteItem();
+        }
+        System.out.println("All gone! Current items size:" + (menu.getItems().size()));
     }
 }
