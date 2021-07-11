@@ -15,7 +15,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
-import net.snortum.javafx.multiscenefxml.controller.MainController;
 
 import java.io.IOException;
 
@@ -30,15 +29,9 @@ public class ToDoList extends Application {
     public void start(Stage primaryStage) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(("TabContainer.fxml")));
-            /*MenuBar menu = FXMLLoader.load(getClass().getResource(("ToDoListMenu.fxml")));
-            ((TabPane)root).getTabs().get(0).setContent(menu);
-            */Scene scene = new Scene(root);
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("My To Do Lists");
-
-            /*FXMLLoader loader = new FXMLLoader();
-            loader.setController(new ToDoListMenuController(primaryStage));
-*/
             primaryStage.show();
 
         } catch (IOException e) {

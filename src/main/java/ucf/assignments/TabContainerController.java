@@ -36,7 +36,6 @@ public class TabContainerController {
         AnchorPane.setBottomAnchor(menu,0.0);
         AnchorPane.setLeftAnchor(menu, 0.0);
         AnchorPane.setRightAnchor(menu, 0.0);
-        
     }
 
 }

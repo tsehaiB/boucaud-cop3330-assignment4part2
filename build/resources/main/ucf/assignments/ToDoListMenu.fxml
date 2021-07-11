@@ -24,14 +24,6 @@
             <MenuItem mnemonicParsing="false" onAction="#onFilterCompleteClicked" text="Filter Complete" />
             <MenuItem mnemonicParsing="false" onAction="#onFilterIncompleteClicked" text="Filter Incomplete" />
             <MenuItem mnemonicParsing="false" onAction="#onShowAllClicked" text="Show All Items" />
-            <Menu mnemonicParsing="false" text="Select To Do Item">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Shopping List" />
-                  <MenuItem mnemonicParsing="false" text="Homework" />
-                  <MenuItem mnemonicParsing="false" text="Exams" />
-                  <MenuItem mnemonicParsing="false" text="Birthdays" />
-               </items>
-            </Menu>
          </items>
       </Menu>
    </menus>
