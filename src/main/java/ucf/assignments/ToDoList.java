@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
+import net.snortum.javafx.multiscenefxml.controller.MainController;
 
 import java.io.IOException;
 
@@ -28,34 +29,20 @@ public class ToDoList extends Application {
     //Display mockup loads example of to do list with 10 example to do items
     public void start(Stage primaryStage) {
         try {
-            TabPane root = new TabPane();
-            /*VBox center = (VBox) root.getCenter();
-            for(int i = 0; i < 5; i++){
-                AnchorPane item = FXMLLoader.load(getClass().getResource("ToDoListItem.fxml"));
-                center.getChildren().add(item);
-            }
-            center.setSpacing(20.0);
-
-            root.setCenter(new ScrollPane(center));*/
-            for(int i = 0; i < 10; i++) {
-                BorderPane toDoListItem = FXMLLoader.load(getClass().getResource(("ToDoListItem.fxml")));
-                MenuBar menu = FXMLLoader.load(getClass().getResource(("ToDoItemManager.fxml")));
-                toDoListItem.setTop(menu);
-                Tab t = new Tab(("Item " + i), toDoListItem);
-                root.getTabs().add(i, t);
-            }
-
-            Scene scene = new Scene(root);
+            Parent root = FXMLLoader.load(getClass().getResource(("TabContainer.fxml")));
+            /*MenuBar menu = FXMLLoader.load(getClass().getResource(("ToDoListMenu.fxml")));
+            ((TabPane)root).getTabs().get(0).setContent(menu);
+            */Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("My To Do Lists");
-            primaryStage.show();
 
+            /*FXMLLoader loader = new FXMLLoader();
+            loader.setController(new ToDoListMenuController(primaryStage));
+*/
+            primaryStage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
-    //This is the minimized template for to do lists that will be loaded onto the primary stage*/
 }

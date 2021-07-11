@@ -15,39 +15,16 @@ import javafx.scene.input.KeyEvent;
 import java.time.LocalDate;
 
 public class ToDoListItem {
-    @FXML
-    private TextField TitleTextField;
-    @FXML
-    private TextArea DescriptionTextArea;
-    @FXML
-    private CheckBox CompletionCheckBox;
-    @FXML
-    private DatePicker DueDateField;
     private String title;
     private String description;
     private boolean completionStatus;
     private LocalDate dueDate;
-
-    @FXML
-    public void Enter(KeyEvent keyEvent) {
-        //set Description instance variable equal to 'this' DescriptionTextArea's current value
+    ToDoListItem(){
+        setCompletionStatus(false);
+        setDueDate(LocalDate.now());
+        setDescription("");
+        setTitle("");
     }
-
-    @FXML
-    public void DueDateChanged(ActionEvent actionEvent) {
-        //set DueDate instance variable equal to 'this' DueDate's current value
-    }
-
-    @FXML
-    public void StatusChanged(ActionEvent actionEvent) {
-        //set CompletionStatus instance variable equal to 'this' CompletionCheckBox's current value
-    }
-
-    @FXML
-    public void TitleEntered(ActionEvent actionEvent) {
-        //set ItemTitle instance variable equal to 'this' TitleTextField's current value
-    }
-
     public String getTitle() {
         return title;
     }
@@ -59,5 +36,17 @@ public class ToDoListItem {
     }
     public LocalDate getDueDate() {
         return dueDate;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+    public void setCompletionStatus(boolean completionStatus) {
+        this.completionStatus = completionStatus;
     }
 }
