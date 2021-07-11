@@ -44,6 +44,7 @@ public class ToDoListMenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(("ToDoListItem.fxml")));
             itemPane = loader.load();
             menu.addItem(((ToDoListItemController) loader.getController()).getItem());
+            System.out.println("Creating item: " + menu.getItems().get(menu.getItems().size()-1));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +53,12 @@ public class ToDoListMenuController {
     }
     @FXML
     public void onDeleteClicked(ActionEvent actionEvent) {
-
+        if(menu.getItems().size() > 0) {
+            int currentTab = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getSelectionModel().getSelectedIndex();
+            ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getTabs().remove(currentTab);
+            System.out.println("Deleting item: " + menu.getItems().get(menu.getItems().size()-1));
+            menu.getItems().remove(menu.getItems().size() - 1);
+        }
     }
     @FXML
     public void onFilterCompleteClicked(ActionEvent actionEvent) {
