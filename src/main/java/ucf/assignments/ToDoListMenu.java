@@ -21,16 +21,10 @@ import java.util.ArrayList;
 public class ToDoListMenu {
 
     private ArrayList<ToDoListItem> items;
-    private ArrayList<ToDoListItem> displayItems;
-    private String itemsToLoad;
-    private String itemsToSave;
 
     public ToDoListMenu() {
         items = new ArrayList<>();
-        displayItems = new ArrayList<>();
     }
-
-
     public ArrayList<ToDoListItem> loadItems(ArrayList<String> str) {
         //create reader at current directory
         //for each string in str
@@ -74,38 +68,11 @@ public class ToDoListMenu {
         return path;
     }
 
-    public ArrayList<ToDoListItem> filterItems(boolean filter){
-        //clear displayItems ArrayList
-            //for each item in items list
-        //if the item's CompletionStatus equals the filter
-            //append item to displayItems
-        return displayItems;
-    }
-    public void listTitleChanged(ActionEvent actionEvent) {
-        //set title instance variable equal to listTitle TextField value
-    }
-    public ToDoListItem createItem(){
-        ToDoListItem item = new ToDoListItem();
-        //create new ToDoList Item 'item'
-        //set item.title to ""
-        //set item.description to ""
-        //set item.CompletionStatus to false
-        //set item.dueDate to LocalDate.now()
-        return item;
-    }
-    public void showItems(){
-        //for each item in display items
-            //create new row in ToDoItemManager's GridPane
-            //add item to row in column 1
-    }
     public void addItem(ToDoListItem nextItem){
        items.add(nextItem);
-       displayItems.add(nextItem);
     }
     public ArrayList<ToDoListItem> getItems(){
         return this.items;
     }
-    public ArrayList<ToDoListItem> getDisplayItems(){
-        return this.displayItems;
-    }
+
 }

@@ -4,78 +4,95 @@ class ToDoList{
     main()
     start()
 }
-class ToDoListManager {
-    - savePath : TextField
-    - loadPath : TextField
-    - ListTitle : TextField
+class TabContainerController {
+    - tPane : TabPane
+    - homeTab : Tab
+    - mainWindow : AnchorPane
 
-    - listSavePath : Path
-    - listLoadPath : Path
-    - listTitle : String
-    - lists : ArrayList<ToDoList>
-
-    + SaveToPath(Action Event)
-    + LoadFromPath(Action Event)
-    + CreateList(Action Event)
-
-    + retPathToLists(Path)
-    + retToDoLists(Path)
-    + addList(String)
-    + showList()
+    + TabContainerController()
+    + initialize()
+    - read()
 }
-class ToDoItemManager {
-    - saveTitles : TextField
-    - loadTitles : TextField
-    - listTitle : TextField
+class ToDoListMenuController{
+    - menu : ToDoListMenu
+    - itemsDisplay : ArrayList<BorderPane>
+    - tPane : TabPane
 
-    - title : String
-    - itemsToLoad : String
-    - itemsToSave : String
-    - items : ArrayList<ToDoListItems>
+    + viewMenu : Menu
+    + editMenu : Menu
+    + fileMenu : Menu
+    + myMenu : MenuBar
 
+    + ToDoListMenuController()
+    + initialize()
     + onSaveClicked(Action Event)
     + onLoadClicked(Action Event)
     + onAddClicked(Action Event)
+    + onDeleteClicked(Action Event)
     + onShowAllClicked(Action Event)
     + onFilterCompleteClicked(Action Event)
     + onFilterIncompleteClicked(Action Event)
-    + onListTitleChanged(Action Event)
+    + onClearClicked(Action Event)
 
     + saveItems(ArrayList<String>)
     + saveItems(String)
     + loadItems(ArrayList<String>)
     + loadItems(String)
 
-    + filterItems(boolean)
-    + showList()
+    - filterItems(boolean)
+    - tabTitle(boolean)
 
-    + getListItems()
-    + getTitle()
-    + getDisplayItems()
+    + setTabPane(TabPane)
+}
+class ToDoListMenu{
+    - savePath : String
+    - loadPath : String
+    - items : ArrayList<ToDoListItem>
+
+    + loadItems(String)
+    + loadItems(ArrayList<String>)
+    + saveItems(String)
+    + saveItems(ArrayList<String>)
+    + addItem(ToDoListItem)
+    + getItems()
+}
+class ToDoListItemController{
+    - TitleTextField : TextField
+    - DescriptionTextArea : TextArea
+    - CompletionCheckBox : CheckBox
+    - DueDateField : DatePicker
+    - item : ToDoListItem
+
+    + ToDoListItemController()
+    + initialize()
+    + Enter(KeyEvent)
+    + DueDateChanged(Action Event)
+    + StatusChanged(Action Event)
+    + TitleEntered(Action Event)
+    + getItem()
+
 }
 class ToDoListItem {
-        - TitleTextField : TextField
-        - DescriptionTextArea : TextArea
-        - CompletionCheckBox : CheckBox
-        - DueDateField : DatePicker
 
         - title : String
         - description : String
         - completionStatus : boolean
         - dueDate : LocalDate
 
-        + Enter(KeyEvent)
-        + DueDateChanged(Action Event)
-        + StatusChanged(Action Event)
-        + TitleEntered(KeyEvent)
-
+        + setTitle(String)
+        + setDescription(String)
+        + setCompletionStatus(boolean)
+        + setDueDate(LocalDate)
         + getTitle()
         + getDescription()
         + getCompletionStatus()
         + getDueDate()
 }
-ToDoList *-> ToDoListManager
-ToDoListManager -- ToDoItemManager
-ToDoItemManager -- ToDoListItem
+ToDoList *-> TabContainerController
+TabContainerController *-> ToDoListMenuController
+ToDoListMenuController *-> ToDoListMenu
+ToDoListMenuController o---> ToDoListItemController
+ToDoListMenu -- ToDoListItem
+ToDoListItemController *-> ToDoListItem
 
 @enduml

@@ -34,10 +34,6 @@ public class ToDoListItemController {
     @FXML
     private DatePicker DueDateField;
 
-    private String title;
-    private String description;
-    private boolean completionStatus;
-    private LocalDate dueDate;
     private ToDoListItem item = new ToDoListItem();
 
     @FXML

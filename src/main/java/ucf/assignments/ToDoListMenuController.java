@@ -105,6 +105,7 @@ public class ToDoListMenuController {
         }
 
     }
+    @FXML
     public void onClearClicked(ActionEvent actionEvent) {
         tPane.getSelectionModel().selectLast();
         while(menu.getItems().size() > 0){
