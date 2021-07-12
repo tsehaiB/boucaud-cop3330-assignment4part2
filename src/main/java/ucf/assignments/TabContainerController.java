@@ -27,7 +27,9 @@ public class TabContainerController {
         MenuBar menu = new MenuBar();
         Text readMe = new Text("Read Me (With Honorable Acknowledgement to Ray:");
         try {
-            menu = FXMLLoader.load(ToDoList.class.getResource(("ToDoListMenu.fxml")));
+            FXMLLoader loader = new FXMLLoader((ToDoList.class.getResource(("ToDoListMenu.fxml"))));
+            menu = loader.load();
+            ((ToDoListMenuController)loader.getController()).setTabPane(tPane);
         } catch (IOException e) {
             e.printStackTrace();
         }

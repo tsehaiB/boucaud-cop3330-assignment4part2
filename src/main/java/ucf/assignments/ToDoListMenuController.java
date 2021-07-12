@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,13 +24,15 @@ public class ToDoListMenuController {
     public Menu fileMenu;
     @FXML
     public MenuBar myMenu;
-    public ToDoListMenuController(){}
-    @FXML
-    public void initialize(){
-
-    }
     private static final ToDoListMenu menu = new ToDoListMenu();
     private static final ArrayList<BorderPane> itemDisplays = new ArrayList<>();
+    private TabPane tPane = new TabPane();
+    public ToDoListMenuController(){
+
+    }
+    @FXML
+    public void initialize(){
+    }
     @FXML
     public void onLoadClicked(ActionEvent actionEvent) {
     }
@@ -47,8 +49,8 @@ public class ToDoListMenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getTabs().add(new Tab("Item", itemDisplays.get(itemDisplays.size()-1)));
-        ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getSelectionModel().selectLast();
+        tPane.getTabs().add(new Tab("Item", itemDisplays.get(itemDisplays.size()-1)));
+        tPane.getSelectionModel().selectLast();
     }
 
     @FXML
@@ -58,8 +60,8 @@ public class ToDoListMenuController {
         }
     }
     private void deleteItem(){
-        int currentTab = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getSelectionModel().getSelectedIndex();
-        ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0)).getTabs().remove(currentTab);
+        int currentTab = tPane.getSelectionModel().getSelectedIndex();
+        tPane.getTabs().remove(currentTab);
         System.out.println("Deleting item: " + menu.getItems().get(currentTab-1));
         menu.getItems().remove(currentTab-1);
         itemDisplays.remove(currentTab-1);
@@ -73,16 +75,15 @@ public class ToDoListMenuController {
     }
     @FXML
     public void onFilterCompleteClicked(ActionEvent actionEvent) {
-        TabPane currentTabPane = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0));
-        currentTabPane.getTabs().remove(1,currentTabPane.getTabs().size());
-        filterTabs(true, currentTabPane);
+        tPane.getTabs().remove(1,tPane.getTabs().size());
+        filterTabs(true);
     }
-    private void filterTabs(boolean expected, TabPane currentTabPane){
-        int currentTab = currentTabPane.getTabs().size()-1;
+    private void filterTabs(boolean expected){
+        int currentTab = tPane.getTabs().size()-1;
         for(BorderPane tab : itemDisplays) {
             if(menu.getItems().get(currentTab).getCompletionStatus() == expected)
             {
-                currentTabPane.getTabs().add(new Tab(tabTitle(expected), tab));
+                tPane.getTabs().add(new Tab(tabTitle(expected), tab));
                 System.out.println("Tab completion status was " + menu.getItems().get(currentTab).getCompletionStatus());
 
             }
@@ -91,27 +92,28 @@ public class ToDoListMenuController {
     }
     @FXML
     public void onFilterIncompleteClicked(ActionEvent actionEvent) {
-        TabPane currentTabPane = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0));
-        currentTabPane.getTabs().remove(1,currentTabPane.getTabs().size());
-        filterTabs(false, currentTabPane);
+        tPane.getTabs().remove(1,tPane.getTabs().size());
+        filterTabs(false);
     }
     @FXML
     public void onShowAllClicked(ActionEvent actionEvent) {
-        TabPane currentTabPane = ((TabPane) myMenu.getParent().getChildrenUnmodifiable().get(0));
-        currentTabPane.getTabs().remove(1,currentTabPane.getTabs().size());
+        tPane.getTabs().remove(1,tPane.getTabs().size());
         for(BorderPane tab : itemDisplays) {
             {
-                currentTabPane.getTabs().add(new Tab("Item", tab));
+                tPane.getTabs().add(new Tab("Item", tab));
             }
         }
 
     }
-
     public void onClearClicked(ActionEvent actionEvent) {
+        tPane.getSelectionModel().selectLast();
         while(menu.getItems().size() > 0){
             myMenu.fireEvent(actionEvent);
             deleteItem();
         }
         System.out.println("All gone! Current items size:" + (menu.getItems().size()));
+    }
+    public void setTabPane(TabPane myWindow){
+        this.tPane = myWindow;
     }
 }
