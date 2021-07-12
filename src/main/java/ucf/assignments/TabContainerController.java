@@ -10,7 +10,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class TabContainerController {
     @FXML
@@ -25,8 +29,9 @@ public class TabContainerController {
     @FXML
     public void initialize(){
         MenuBar menu = new MenuBar();
-        Text readMe = new Text("Read Me (With Honorable Acknowledgement to Ray:");
+        Text readMe = new Text();
         try {
+            readMe = new Text(read());
             FXMLLoader loader = new FXMLLoader((ToDoList.class.getResource(("ToDoListMenu.fxml"))));
             menu = loader.load();
             ((ToDoListMenuController)loader.getController()).setTabPane(tPane);
@@ -39,5 +44,14 @@ public class TabContainerController {
         AnchorPane.setLeftAnchor(menu, 0.0);
         AnchorPane.setRightAnchor(menu, 0.0);
     }
-
+    private String read() throws FileNotFoundException {
+        File inp = new File("C:\\Users\\Art3mis\\IdeaProjects\\boucuad-cop3330-assignment4part2\\ReadMe.txt");
+        Scanner reader = new Scanner(inp);
+        String readMe = "";
+        while(reader.hasNextLine()){
+            readMe += reader.nextLine();
+            readMe += "\n";
+        }
+        return readMe;
+    }
 }
