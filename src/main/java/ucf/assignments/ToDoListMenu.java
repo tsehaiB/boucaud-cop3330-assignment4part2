@@ -19,7 +19,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ToDoListMenu {
-
+    private ArrayList<BorderPane> itemDisplays = new ArrayList<>();
+    private TabPane tPane = new TabPane();
     private ArrayList<ToDoListItem> items;
 
     public ToDoListMenu() {
@@ -48,7 +49,6 @@ public class ToDoListMenu {
         return items;
     }
 
-
     public String saveItems(ArrayList<String> titles) {
         String path = "";
         //assign path to current directory
@@ -68,11 +68,57 @@ public class ToDoListMenu {
         return path;
     }
 
+    public void addTab(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(("ToDoListItem.fxml")));
+            itemDisplays.add(loader.load());
+            addItem(((ToDoListItemController) loader.getController()).getItem());
+            System.out.println("Creating item: " + getItems().get(getItems().size()-1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        tPane.getTabs().add(new Tab("Item", itemDisplays.get(itemDisplays.size()-1)));
+        tPane.getSelectionModel().selectLast();
+    }
+    public void deleteTab(){
+        int currentTab = tPane.getSelectionModel().getSelectedIndex();
+        tPane.getTabs().remove(currentTab);
+        System.out.println("Deleting item: " + getItems().get(currentTab-1));
+        getItems().remove(currentTab-1);
+        itemDisplays.remove(currentTab-1);
+    }
+    private String tabTitle(boolean expected){
+        if(expected)
+            return "Completed Item";
+        else
+            return "Incomplete Item";
+    }
+    public void filterTabs(boolean expected){
+        int currentTab = tPane.getTabs().size()-1;
+        for(BorderPane tab : itemDisplays) {
+            if(getItems().get(currentTab).getCompletionStatus() == expected)
+            {
+                tPane.getTabs().add(new Tab(tabTitle(expected), tab));
+                System.out.println("Tab completion status was " + getItems().get(currentTab).getCompletionStatus());
+
+            }
+            currentTab++;
+        }
+    }
     public void addItem(ToDoListItem nextItem){
        items.add(nextItem);
     }
     public ArrayList<ToDoListItem> getItems(){
         return this.items;
     }
+    public ArrayList<BorderPane> getItemDisplays(){
+        return this.itemDisplays;
+    }
+    public TabPane getTPane(){
+        return this.tPane;
+    }
 
+    public void setTabPane(TabPane myWindow) {
+        this.tPane = myWindow;
+    }
 }

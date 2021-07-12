@@ -11,6 +11,10 @@ class TabContainerController {
 
     + TabContainerController()
     + initialize()
+    + buildWindow(AnchorPane)
+
+    - buildReadMe(Tab)
+    - buildMenu(AnchorPane)
     - read()
 }
 class ToDoListMenuController{
