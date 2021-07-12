@@ -49,7 +49,7 @@ public class ToDoListMenuController {
         }
     }
     private void deleteItem(){
-        menu.deleteTab();
+        menu.deleteTab(menu.getTPane().getSelectionModel().getSelectedIndex());
     }
     @FXML
     public void onFilterCompleteClicked(ActionEvent actionEvent) {

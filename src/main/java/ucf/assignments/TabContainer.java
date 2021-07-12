@@ -25,7 +25,7 @@ public class TabContainer {
         }
         return readMe;
     }
-    private void buildMenu(AnchorPane window, TabPane tPane){
+    public void buildMenu(AnchorPane window, TabPane tPane){
         MenuBar menu = new MenuBar();
         try {
             FXMLLoader loader = new FXMLLoader((ToDoList.class.getResource(("ToDoListMenu.fxml"))));
